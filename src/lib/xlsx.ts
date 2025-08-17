@@ -65,18 +65,18 @@ export function importFromXLSX(buffer: Buffer): RSVPData[] {
     const dataRows = jsonData.slice(1);
     
     return dataRows.map((row): RSVPData => ({
-      timestamp: row[0] || '',
-      nombre: row[1] || '',
-      email: row[2] || '',
-      telefono: row[3] || '',
-      asistira: row[4] || '',
-      n_acompanantes: parseInt(row[5]) || 0,
-      nombres_acompanantes: row[6] || '',
-      alergias: row[7] || '',
-      necesita_alojamiento: row[8] || '',
-      observaciones: row[9] || '',
-      ip_origen: row[10] || '',
-      user_agent: row[11] || ''
+      timestamp: String(row[0] || ''),
+      nombre: String(row[1] || ''),
+      email: String(row[2] || ''),
+      telefono: String(row[3] || ''),
+      asistira: String(row[4] || ''),
+      n_acompanantes: parseInt(String(row[5])) || 0,
+      nombres_acompanantes: String(row[6] || ''),
+      alergias: String(row[7] || ''),
+      necesita_alojamiento: String(row[8] || ''),
+      observaciones: String(row[9] || ''),
+      ip_origen: String(row[10] || ''),
+      user_agent: String(row[11] || '')
     }));
   } catch (error) {
     console.error('Error importing from XLSX:', error);
