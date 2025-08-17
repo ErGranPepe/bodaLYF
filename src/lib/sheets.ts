@@ -37,12 +37,11 @@ export async function saveToGoogleSheets(data: RSVPData): Promise<boolean> {
     }
 
     // Create JWT client
-    const jwtClient = new google.auth.JWT(
-      serviceAccountEmail,
-      undefined,
-      privateKey,
-      ['https://www.googleapis.com/auth/spreadsheets']
-    );
+    const jwtClient = new google.auth.JWT({
+      email: serviceAccountEmail,
+      key: privateKey,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets']
+    });
 
     // Authorize the client
     await jwtClient.authorize();
@@ -103,12 +102,11 @@ export async function readFromGoogleSheets(): Promise<RSVPData[]> {
     }
 
     // Create JWT client
-    const jwtClient = new google.auth.JWT(
-      serviceAccountEmail,
-      undefined,
-      privateKey,
-      ['https://www.googleapis.com/auth/spreadsheets']
-    );
+    const jwtClient = new google.auth.JWT({
+      email: serviceAccountEmail,
+      key: privateKey,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets']
+    });
 
     // Authorize the client
     await jwtClient.authorize();
