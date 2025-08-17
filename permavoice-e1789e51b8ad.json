@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "permavoice",
+  "private_key_id": "e1789e51b8ad782252d7a35d7b4e771e588b41cd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCzyYW8cIj/Lv2A\nqWq00FHvGXXB4aaQf1rGpcGJKk4ag4aGIMMoExDKB4sLAy3P3JU9Zc33rAWS1Cp3\ngOg86SgmCH4s+7O7kU1AaEoOPrhsG+ak+JbOqT/VJ5yLXBg+qF3bZM1FdSbwPO44\nzZ8QD611HGPiul3mrNhRQwRhmQzzHB/AOyjyiU1mjDpmkiTlmXf20CKpZDhkP7tm\nR+KLh45tK5o7g57EMJ4grR3oZDczmLG7QVaLaigNEbx80gEA8QNtEEbmJJPUpi9e\nOD84doU+XW2hz7/45BchFQfFBxF1OSLZuWnmtMNHpAns9IeyPIR0Pb+ZCjorW1fw\ntleF38dZAgMBAAECggEAN80jkiJHkxSNoAJ1WRuTYqe/UebsoMq2bRODZ0RXK4mJ\nFlZS3DxWqK4ArPFWpb5sH7taWzXsIO9zItZCvq0LRgq6xtF0rpHhrUzxN0ymRv+9\n7ZQukoQbiNgbkXGLIN93CiJWR+mdpVD0C3NenEiRaNjf874uaOta1JX9ZSFw0H9y\nwVezF8/iSxZtPERJqxWmfImvOdxusVAAXBivm4R+ADxTmnaaj1oPtOj8lcuhnvAR\nxVl36Z0lZvO+0IXCuwRsu0ueYgBmUOAsidZ1AcXpjxy82zfy5FLau3s7Gi8sLRkb\npWw/EflGQfRACuZZ4eMmBo48VvygyJLdczxH2GciNQKBgQD1qNJfKiUGq23UPozJ\nZFATTvDxDNXtXneCw0O7h8fdaAREnOnFzf8UJDgw4ti1xBdl5bBNitXpqgS87EYo\nD6Hz+BRsf0cV3y6r9/vP9JyOREoXqlrcD95WnkSo4Xa/MEmPFsxAe/7tUUgtN9aq\nB87A69hjF5yF8Ygm/GQRkD42EwKBgQC7Wt/AsI4iUllByc/+/10IJoq8a/41TalK\nV948e5k2Gg3M+D6KPY6+8iptMb4BcoEZORbKKYgCrjJKtXO7B6Vf1LqwnESTP/qc\nQWLSdd3sy4F4oJ6ifOEQlnkLsa8tIFV40mugXxbxJNsGdsnpSqp6GcEVz3vT5p1W\nggyWOH9qYwKBgHbMXnfQ/Ljd/C3w1cqqrSK5QUGA8I9q6Kae4Ul2H0xN+gpoS5Dx\nzpIh9d6GRUCZhKstSXYmVs45/zKRnFfRP4OpC89wOaM1G+/j662kYHVYRvBs3KWh\nMud2gEOfTPqmUlxVLQ9eJ2kCrsHXSANP5UdchnddOr93j10zHv1zYPJrAoGAN+LS\njarcqvY/c7VcWucXfB/rEGtyR7ojvm5Zd1czC4VYCoUeOqREGUcpSqskz0+1nK1/\n08vxq0ME824O2IJeXSiai6YBep8CBWwnqznHeiP2OeJHj5aKmCUadFeLNn3HoSO7\nQPo8YLAquVHjxrgkBAn8o6HhgQLweeaPFJxDvZsCgYEAmtJBATmAhmfFnKeFYr0v\n3wpeXOAr7GZfuaQgdgIHh7Ci08hiBlVArniMRCsrm9lMoVtdUrTTuSKjDhMJKJdj\nvyf4PQFe3QdQ31Awf9Gm8txLsSk5C6KZZQhLwO2Kqvz4ATq+cQFcONxjkWts0g8O\ntYenpVQJYlxD81xaVfLxN64=\n-----END PRIVATE KEY-----\n",
+  "client_email": "sheet-wedding-bot@permavoice.iam.gserviceaccount.com",
+  "client_id": "115562853152445486894",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sheet-wedding-bot%40permavoice.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
