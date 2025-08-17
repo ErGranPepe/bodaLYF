@@ -59,7 +59,7 @@ export function importFromXLSX(buffer: Buffer): RSVPData[] {
     const ws = wb.Sheets[wsName];
     
     // Convert to JSON
-    const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1 }) as any[][];
+    const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1 }) as (string | number)[][];
     
     // Skip header row and convert to RSVPData format
     const dataRows = jsonData.slice(1);
