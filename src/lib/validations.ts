@@ -5,13 +5,13 @@ export const rsvpSchema = z.object({
   email: z.string().email('Email inválido'),
   telefono: z.string().optional(),
   asistira: z.enum(['Sí', 'No'], {
-    required_error: 'Debes indicar si asistirás'
+    errorMap: () => ({ message: 'Debes indicar si asistirás' })
   }),
   n_acompanantes: z.number().min(0).max(6),
   nombres_acompanantes: z.string().optional(),
   alergias: z.string().optional(),
   necesita_alojamiento: z.enum(['Sí', 'No'], {
-    required_error: 'Debes indicar si necesitas alojamiento'
+    errorMap: () => ({ message: 'Debes indicar si necesitas alojamiento' })
   }),
   observaciones: z.string().optional(),
   consentimiento: z.boolean().refine(val => val === true, {

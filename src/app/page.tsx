@@ -36,7 +36,7 @@ export default function HomePage() {
         toast({ title: '¡Confirmación enviada!', description: 'Gracias por confirmar tu asistencia.' });
         setFormData({ nombre: '', email: '', telefono: '', asistencia: '', acompanantes: '', alergias: '', transporte: false, alojamiento: false, comentarios: '' });
       }
-    } catch (error) {
+    } catch {
       toast({ title: 'Error', description: 'No se pudo enviar la confirmación.' });
     }
   };
