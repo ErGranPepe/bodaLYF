@@ -24,6 +24,8 @@ export default function HomePage() {
     comentarios: ''
   });
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -35,6 +37,7 @@ export default function HomePage() {
       if (response.ok) {
         toast({ title: '¡Confirmación enviada!', description: 'Gracias por confirmar tu asistencia.' });
         setFormData({ nombre: '', email: '', telefono: '', asistencia: '', acompanantes: '', alergias: '', transporte: false, alojamiento: false, comentarios: '' });
+        setFormSubmitted(true);
       }
     } catch {
       toast({ title: 'Error', description: 'No se pudo enviar la confirmación.' });
@@ -327,147 +330,157 @@ export default function HomePage() {
               <p className="text-amber-700">Nos haría muy felices contar contigo</p>
             </div>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="nombre" className="text-amber-900 font-semibold flex items-center gap-2">
-                    <span className="text-amber-600">👤</span> Nombre completo *
-                  </Label>
-                  <Input
-                    id="nombre"
-                    value={formData.nombre}
-                    onChange={(e) => setFormData({...formData, nombre: e.target.value})}
-                    required
-                    className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all"
-                    placeholder="Tu nombre completo"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-amber-900 font-semibold flex items-center gap-2">
-                    <span className="text-amber-600">📧</span> Email *
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    required
-                    className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all"
-                    placeholder="tu@email.com"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-3">
-                  <Label htmlFor="telefono" className="text-amber-900 font-semibold flex items-center gap-2">
-                    <span className="text-amber-600">📱</span> Teléfono
-                  </Label>
-                  <Input
-                    id="telefono"
-                    value={formData.telefono}
-                    onChange={(e) => setFormData({...formData, telefono: e.target.value})}
-                    className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all"
-                    placeholder="123 456 789"
-                  />
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="asistencia" className="text-amber-900 font-semibold flex items-center gap-2">
-                    <span className="text-amber-600">✨</span> Asistencia *
-                  </Label>
-                  <Select value={formData.asistencia} onValueChange={(value) => setFormData({...formData, asistencia: value})} required>
-                    <SelectTrigger className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all">
-                      <SelectValue placeholder="¿Podrás acompañarnos?" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="si">🎉 Sí, asistiré</SelectItem>
-                      <SelectItem value="no">😢 No podré asistir</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <Label htmlFor="acompanantes" className="text-amber-900 font-semibold flex items-center gap-2">
-                  <span className="text-amber-600">👥</span> Número de acompañantes
-                </Label>
-                <Input
-                  id="acompanantes"
-                  type="number"
-                  min="0"
-                  max="10"
-                  value={formData.acompanantes}
-                  onChange={(e) => setFormData({...formData, acompanantes: e.target.value})}
-                  className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all"
-                  placeholder="0"
-                />
-                <p className="text-sm text-amber-600">Incluye niños y adultos que te acompañarán</p>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="alergias" className="text-amber-900 font-semibold">Alergias o restricciones alimentarias</Label>
-                <Textarea
-                  id="alergias"
-                  value={formData.alergias}
-                  onChange={(e) => setFormData({...formData, alergias: e.target.value})}
-                  className="border-amber-200 focus:border-amber-500 focus:ring-amber-500 min-h-[80px]"
-                  placeholder="Especifica cualquier alergia o restricción alimentaria..."
-                />
-              </div>
-
-              <div className="bg-amber-50 rounded-xl p-6 space-y-4">
-                <h3 className="font-semibold text-amber-900 mb-4">Información adicional</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <Checkbox
-                      id="transporte"
-                      checked={formData.transporte}
-                      onCheckedChange={(checked) => setFormData({...formData, transporte: checked as boolean})}
-                      className="mt-1 border-amber-300 data-[state=checked]:bg-amber-600"
-                    />
-                    <Label htmlFor="transporte" className="text-amber-800 leading-relaxed">
-                      Necesito información sobre transporte (taxis disponibles)
-                    </Label>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <Checkbox
-                      id="alojamiento"
-                      checked={formData.alojamiento}
-                      onCheckedChange={(checked) => setFormData({...formData, alojamiento: checked as boolean})}
-                      className="mt-1 border-amber-300 data-[state=checked]:bg-amber-600"
-                    />
-                    <Label htmlFor="alojamiento" className="text-amber-800 leading-relaxed">
-                      Necesito información sobre alojamiento (precio especial para invitados)
-                    </Label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="comentarios" className="text-amber-900 font-semibold">Comentarios adicionales</Label>
-                <Textarea
-                  id="comentarios"
-                  value={formData.comentarios}
-                  onChange={(e) => setFormData({...formData, comentarios: e.target.value})}
-                  className="border-amber-200 focus:border-amber-500 focus:ring-amber-500 min-h-[100px]"
-                  placeholder="Cualquier cosa que quieras decirnos..."
-                />
-              </div>
-
-              <div className="pt-4">
-                <Button 
-                  type="submit" 
-                  className="w-full bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 hover:from-amber-700 hover:via-amber-800 hover:to-amber-900 text-white py-4 md:py-5 text-lg md:text-xl font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300"
-                >
-                  <span className="flex items-center justify-center gap-3">
-                    💌 Enviar Confirmación 💌
-                  </span>
+            {formSubmitted ? (
+              <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 max-w-xl mx-auto text-center">
+                <h3 className="text-3xl font-semibold text-amber-900 mb-6">¡Formulario enviado!</h3>
+                <p className="text-amber-700 mb-6">Gracias por confirmar tu asistencia. Nos vemos en la boda.</p>
+                <Button onClick={() => setFormSubmitted(false)} className="px-6 py-3 text-base md:text-lg">
+                  Cerrar
                 </Button>
-                <p className="text-center text-sm text-amber-600 mt-4">
-                  🔒 Tus datos están seguros y solo los usaremos para la boda
-                </p>
               </div>
-            </form>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="nombre" className="text-amber-900 font-semibold flex items-center gap-2">
+                      <span className="text-amber-600">👤</span> Nombre completo *
+                    </Label>
+                    <Input
+                      id="nombre"
+                      value={formData.nombre}
+                      onChange={(e) => setFormData({...formData, nombre: e.target.value})}
+                      required
+                      className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all"
+                      placeholder="Tu nombre completo"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-amber-900 font-semibold flex items-center gap-2">
+                      <span className="text-amber-600">📧</span> Email *
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      required
+                      className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all"
+                      placeholder="tu@email.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <Label htmlFor="telefono" className="text-amber-900 font-semibold flex items-center gap-2">
+                      <span className="text-amber-600">📱</span> Teléfono
+                    </Label>
+                    <Input
+                      id="telefono"
+                      value={formData.telefono}
+                      onChange={(e) => setFormData({...formData, telefono: e.target.value})}
+                      className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all"
+                      placeholder="123 456 789"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="asistencia" className="text-amber-900 font-semibold flex items-center gap-2">
+                      <span className="text-amber-600">✨</span> Asistencia *
+                    </Label>
+                    <Select value={formData.asistencia} onValueChange={(value) => setFormData({...formData, asistencia: value})} required>
+                      <SelectTrigger className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all">
+                        <SelectValue placeholder="¿Podrás acompañarnos?" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="si">🎉 Sí, asistiré</SelectItem>
+                        <SelectItem value="no">😢 No podré asistir</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Label htmlFor="acompanantes" className="text-amber-900 font-semibold flex items-center gap-2">
+                    <span className="text-amber-600">👥</span> Número de acompañantes
+                  </Label>
+                  <Input
+                    id="acompanantes"
+                    type="number"
+                    min="0"
+                    max="10"
+                    value={formData.acompanantes}
+                    onChange={(e) => setFormData({...formData, acompanantes: e.target.value})}
+                    className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all"
+                    placeholder="0"
+                  />
+                  <p className="text-sm text-amber-600">Incluye niños y adultos que te acompañarán</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="alergias" className="text-amber-900 font-semibold">Alergias o restricciones alimentarias</Label>
+                  <Textarea
+                    id="alergias"
+                    value={formData.alergias}
+                    onChange={(e) => setFormData({...formData, alergias: e.target.value})}
+                    className="border-amber-200 focus:border-amber-500 focus:ring-amber-500 min-h-[80px]"
+                    placeholder="Especifica cualquier alergia o restricción alimentaria..."
+                  />
+                </div>
+
+                <div className="bg-amber-50 rounded-xl p-6 space-y-4">
+                  <h3 className="font-semibold text-amber-900 mb-4">Información adicional</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-start space-x-3">
+                      <Checkbox
+                        id="transporte"
+                        checked={formData.transporte}
+                        onCheckedChange={(checked) => setFormData({...formData, transporte: checked as boolean})}
+                        className="mt-1 border-amber-300 data-[state=checked]:bg-amber-600"
+                      />
+                      <Label htmlFor="transporte" className="text-amber-800 leading-relaxed">
+                        Necesito información sobre transporte (taxis disponibles)
+                      </Label>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Checkbox
+                        id="alojamiento"
+                        checked={formData.alojamiento}
+                        onCheckedChange={(checked) => setFormData({...formData, alojamiento: checked as boolean})}
+                        className="mt-1 border-amber-300 data-[state=checked]:bg-amber-600"
+                      />
+                      <Label htmlFor="alojamiento" className="text-amber-800 leading-relaxed">
+                        Necesito información sobre alojamiento (precio especial para invitados)
+                      </Label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="comentarios" className="text-amber-900 font-semibold">Comentarios adicionales</Label>
+                  <Textarea
+                    id="comentarios"
+                    value={formData.comentarios}
+                    onChange={(e) => setFormData({...formData, comentarios: e.target.value})}
+                    className="border-amber-200 focus:border-amber-500 focus:ring-amber-500 min-h-[100px]"
+                    placeholder="Cualquier cosa que quieras decirnos..."
+                  />
+                </div>
+
+                <div className="pt-4">
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 hover:from-amber-700 hover:via-amber-800 hover:to-amber-900 text-white py-4 md:py-5 text-lg md:text-xl font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300"
+                  >
+                    <span className="flex items-center justify-center gap-3">
+                      💌 Enviar Confirmación 💌
+                    </span>
+                  </Button>
+                  <p className="text-center text-sm text-amber-600 mt-4">
+                    🔒 Tus datos están seguros y solo los usaremos para la boda
+                  </p>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </section>
