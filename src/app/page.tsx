@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Calendar, Clock, MapPin, Car, Hotel, Phone, Heart } from 'lucide-react';
 import MapEmbed from '@/components/MapEmbed';
 import { useToast } from '@/components/ui/use-toast';
+import '@/app/enhanced-styles.css';
 
 export default function HomePage() {
   const { toast } = useToast();
@@ -47,8 +48,8 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="hero-gradient min-h-screen flex items-center justify-center text-center px-4">
-        <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-sm rounded-3xl p-8 md:p-12">
+      <section className="hero-gradient min-h-screen flex items-start justify-center text-center px-4">
+        <div className="max-w-4xl mx-auto bg-white/3 backdrop-blur-sm rounded-3xl p-6 md:p-8 mt-20">
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 drop-shadow-lg">
             Leire & Fran
           </h1>
@@ -71,6 +72,37 @@ export default function HomePage() {
             >
               📍 Ver Información
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Historia Resumida */}
+      <section className="py-12 md:py-16 bg-gradient-to-br from-white via-amber-50/30 to-rose-50/50">
+        <div className="container-max px-4">
+          <div className="text-center mb-8 animate-fade-in">
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-amber-700 to-rose-600 bg-clip-text text-transparent">
+              Nuestra Historia
+            </h2>
+            <div className="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl border border-amber-100/50 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group">
+              <div className="relative">
+                <Heart className="w-8 h-8 md:w-12 md:h-12 text-amber-600 mx-auto mb-6 animate-pulse group-hover:animate-bounce transition-all duration-300" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-amber-400 to-rose-400 rounded-full opacity-20 animate-ping"></div>
+                </div>
+              </div>
+              <p className="text-gray-700 text-sm md:text-base leading-relaxed font-medium">
+                Todo comenzó trabajando juntos en Casa de Campo. Entre platos y risas, el destino nos unió.
+                <br /><br />
+                Leire sorprendió a Fran con la propuesta en casa, cerveza en mano.
+                <br /><br />
+                Ahora celebramos nuestro amor en los jardines del Boabdil.
+              </p>
+              <div className="mt-6 flex justify-center space-x-4">
+                <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-rose-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -165,24 +197,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Historia Resumida */}
-      <section className="py-12 md:py-16 bg-gradient-to-br from-white to-amber-50">
-        <div className="container-max px-4">
-          <div className="text-center mb-8">
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Nuestra Historia
-            </h2>
-            <div className="max-w-2xl mx-auto bg-white rounded-xl p-4 md:p-6 shadow-sm">
-              <Heart className="w-6 h-6 md:w-8 md:h-8 text-amber-700 mx-auto mb-4" />
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                Todo comenzó trabajando juntos en Casa de Campo. Entre platos y risas, el destino nos unió. 
-                Leire sorprendió a Fran con la propuesta en casa, cerveza en mano. 
-                Ahora celebramos nuestro amor en los jardines del Boabdil.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Transporte y Parking */}
       <section className="py-12 md:py-16 bg-gradient-to-br from-amber-50 to-white">

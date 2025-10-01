@@ -71,7 +71,7 @@ html {
     linear-gradient(rgba(139, 69, 19, 0.7), rgba(160, 82, 45, 0.8)),
     url('/hero-bg.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: center 30%;
   background-attachment: fixed;
 }
 
