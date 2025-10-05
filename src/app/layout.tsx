@@ -45,6 +45,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${playfair.variable} ${inter.variable}`}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
+        <link rel="icon" href="/lf-favicon.svg" type="image/svg+xml" />
+        <meta name="theme-color" content="#d4af37" />
+      </head>
       <body className="font-sans antialiased">
         <main>
           {children}
