@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -27,7 +28,19 @@ export default function HomePage() {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset;
+      const parallaxElements = document.querySelectorAll('.parallax');
+      parallaxElements.forEach((element) => {
+        (element as HTMLElement).style.transform = `translateY(${scrolled * 0.5}px)`;
+      });
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent | React.MouseEvent) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/rsvp', {
@@ -36,7 +49,7 @@ export default function HomePage() {
         body: JSON.stringify(formData)
       });
       if (response.ok) {
-        toast({ title: '¡Confirmación enviada!', description: 'Gracias por confirmar tu asistencia.' });
+        // Removed toast popup as per user request
         setFormData({ nombre: '', email: '', telefono: '', asistencia: '', acompanantes: '', alergias: '', transporte: false, alojamiento: false, comentarios: '' });
         setFormSubmitted(true);
       }
@@ -57,17 +70,17 @@ export default function HomePage() {
             ¡Nos casamos!
           </p>
           <div className="space-y-4 md:space-y-0 md:space-x-4 md:flex md:justify-center">
-            <Button 
-              size="lg" 
-              className="bg-white/90 hover:bg-white text-amber-800 px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+            <Button
+              size="lg"
+              className="bg-white/80 hover:bg-white/95 text-amber-800 px-8 py-4 text-lg font-medium shadow-sm hover:shadow-md transition-all duration-300 rounded-xl border border-white/20"
               onClick={() => document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth' })}
             >
               💌 Confirmar Asistencia
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border-white/80 text-white hover:bg-white/20 px-8 py-4 text-lg backdrop-blur-sm"
+            <Button
+              variant="outline"
+              size="lg"
+              className="border border-white/60 text-white hover:bg-white/10 hover:border-white/80 px-8 py-4 text-lg backdrop-blur-sm transition-all duration-300 rounded-xl"
               onClick={() => document.getElementById('info')?.scrollIntoView({ behavior: 'smooth' })}
             >
               📍 Ver Información
@@ -84,12 +97,7 @@ export default function HomePage() {
               Nuestra Historia
             </h2>
             <div className="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl border border-amber-100/50 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group">
-              <div className="relative">
-                <Heart className="w-8 h-8 md:w-12 md:h-12 text-amber-600 mx-auto mb-6 animate-pulse group-hover:animate-bounce transition-all duration-300" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-amber-400 to-rose-400 rounded-full opacity-20 animate-ping"></div>
-                </div>
-              </div>
+              {/* Removed the image here as per user request */}
               <p className="text-gray-700 text-sm md:text-base leading-relaxed font-medium">
                 Todo comenzó trabajando juntos en Casa de Campo. Entre platos y risas, el destino nos unió.
                 <br /><br />
@@ -163,28 +171,28 @@ export default function HomePage() {
             </h3>
             <div className="max-w-2xl mx-auto">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                <div className="text-center">
+                <div className="text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
                   <div className="bg-amber-700 text-white rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center mx-auto mb-2">
                     <span className="font-bold text-sm md:text-base">12:30</span>
                   </div>
                   <p className="font-medium text-sm md:text-base">Ceremonia</p>
                   <p className="text-xs md:text-sm text-gray-600">(jardines)</p>
                 </div>
-                <div className="text-center">
+                <div className="text-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
                   <div className="bg-amber-600 text-white rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center mx-auto mb-2">
                     <span className="font-bold text-sm md:text-base">13:30</span>
                   </div>
                   <p className="font-medium text-sm md:text-base">Cóctel</p>
                   <p className="text-xs md:text-sm text-gray-600">brindis</p>
                 </div>
-                <div className="text-center">
+                <div className="text-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
                   <div className="bg-amber-500 text-white rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center mx-auto mb-2">
                     <span className="font-bold text-sm md:text-base">15:00</span>
                   </div>
                   <p className="font-medium text-sm md:text-base">Banquete</p>
                   <p className="text-xs md:text-sm text-gray-600">comida</p>
                 </div>
-                <div className="text-center">
+                <div className="text-center animate-fade-in" style={{ animationDelay: '0.8s' }}>
                   <div className="bg-amber-400 text-white rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center mx-auto mb-2">
                     <span className="font-bold text-sm md:text-base">19:00</span>
                   </div>
@@ -273,7 +281,7 @@ export default function HomePage() {
           </div>
 
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-4 md:gap-6">
-            <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="bg-white rounded-xl p-6 shadow-sm animate-slide-in-left" style={{ animationDelay: '0.1s' }}>
               <h3 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
                 <Clock className="w-5 h-5 text-amber-600" />
                 ¿A qué hora empieza?
@@ -281,7 +289,7 @@ export default function HomePage() {
               <p className="text-gray-600">La ceremonia comenzará a las <strong>12:30</strong>. Te recomendamos llegar 15 minutos antes.</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="bg-white rounded-xl p-6 shadow-sm animate-slide-in-right" style={{ animationDelay: '0.2s' }}>
               <h3 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
                 <Car className="w-5 h-5 text-amber-600" />
                 ¿Hay parking?
@@ -289,7 +297,7 @@ export default function HomePage() {
               <p className="text-gray-600">Sí, el restaurante cuenta con un amplio espacio de parking gratuito.</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="bg-white rounded-xl p-6 shadow-sm animate-slide-in-left" style={{ animationDelay: '0.3s' }}>
               <h3 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
                 <Hotel className="w-5 h-5 text-amber-600" />
                 ¿Hay alojamiento?
@@ -297,7 +305,7 @@ export default function HomePage() {
               <p className="text-gray-600">Sí, el restaurante ofrece precio especial para invitados. También hay otros hoteles cercanos.</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="bg-white rounded-xl p-6 shadow-sm animate-slide-in-right" style={{ animationDelay: '0.4s' }}>
               <h3 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
                 <Phone className="w-5 h-5 text-amber-600" />
                 ¿Cómo llego?
@@ -305,7 +313,7 @@ export default function HomePage() {
               <p className="text-gray-600">Puedes venir en coche (hay parking) o llamar a los taxis: 958 28 00 00 o 633 21 43 95.</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="bg-white rounded-xl p-6 shadow-sm animate-slide-in-left" style={{ animationDelay: '0.5s' }}>
               <h3 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
                 <span className="text-amber-600">🍽️</span>
                 ¿Hay menú especial?
@@ -313,7 +321,7 @@ export default function HomePage() {
               <p className="text-gray-600">Sí, avisa en el formulario si tienes alergias o restricciones alimentarias.</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="bg-white rounded-xl p-6 shadow-sm animate-slide-in-right" style={{ animationDelay: '0.6s' }}>
               <h3 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
                 <span className="text-amber-600">👶</span>
                 ¿Puedo traer niños?
@@ -346,15 +354,15 @@ export default function HomePage() {
             </div>
             
             {formSubmitted ? (
-              <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 max-w-xl mx-auto text-center">
+              <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 max-w-xl mx-auto text-center transition-opacity duration-700 ease-in-out opacity-100">
                 <h3 className="text-3xl font-semibold text-amber-900 mb-6">¡Formulario enviado!</h3>
                 <p className="text-amber-700 mb-6">Gracias por confirmar tu asistencia. Nos vemos en la boda.</p>
-                <Button onClick={() => setFormSubmitted(false)} className="px-6 py-3 text-base md:text-lg">
+                <Button onClick={() => setFormSubmitted(false)} variant="outline" className="px-6 py-3 text-base md:text-lg border-amber-300 text-amber-700 hover:bg-amber-50 transition-all duration-300 rounded-lg">
                   Cerrar
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 transition-opacity duration-700 ease-in-out opacity-100">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="nombre" className="text-amber-900 font-semibold flex items-center gap-2">
@@ -406,15 +414,15 @@ export default function HomePage() {
                       <SelectTrigger className="border-2 border-amber-200 focus:border-amber-500 focus:ring-amber-500/20 h-12 rounded-xl transition-all">
                         <SelectValue placeholder="¿Podrás acompañarnos?" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="si">🎉 Sí, asistiré</SelectItem>
-                        <SelectItem value="no">😢 No podré asistir</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                    <SelectContent className="bg-white shadow-lg rounded-md border border-gray-300">
+                      <SelectItem value="si" className="mb-1">🎉 Sí, asistiré</SelectItem>
+                      <SelectItem value="no" className="mt-1">😢 No podré asistir</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-3 mt-4">
                   <Label htmlFor="acompanantes" className="text-amber-900 font-semibold flex items-center gap-2">
                     <span className="text-amber-600">👥</span> Número de acompañantes
                   </Label>
@@ -483,8 +491,8 @@ export default function HomePage() {
 
                 <div className="pt-4">
                   <Button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 hover:from-amber-700 hover:via-amber-800 hover:to-amber-900 text-white py-4 md:py-5 text-lg md:text-xl font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300"
+                    onClick={handleSubmit}
+                    className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white py-4 md:py-5 text-lg md:text-xl font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
                   >
                     <span className="flex items-center justify-center gap-3">
                       💌 Enviar Confirmación 💌
@@ -499,6 +507,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
     </div>
   );
 }
