@@ -1,53 +1,49 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { google } from 'googleapis';
+import { google } from "googleapis";
+import { NextResponse } from "next/server";
+import path from "path";
 
-export async function POST(request: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const data = await request.json();
-    console.log('Received RSVP data:', data);
+    const body = await req.json();
 
-    if (!process.env.GOOGLE_CLIENT_EMAIL || !process.env.GOOGLE_PRIVATE_KEY || !process.env.GOOGLE_SHEET_ID) {
-      console.error('Missing Google Sheets API environment variables');
-      return NextResponse.json({ error: 'Configuración del servidor incompleta' }, { status: 500 });
-    }
+    // Cargar el JSON del service account
+    const keyPath = path.join(process.cwd(), "service-account.json");
 
     const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-      },
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+      keyFile: keyPath,
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
 
-    const sheets = google.sheets({ version: 'v4', auth });
+    const client = await auth.getClient();
+    const sheets = google.sheets({ version: "v4", auth: client });
+
+    // EL ID DE TU EXCEL REAL (el que ya tienes con invitados)
+    const spreadsheetId = "1PDbMbCkRjJ62fcolm42SHoQh_xbv_nOUN-81kb1js7c";
 
     const values = [[
       new Date().toISOString(),
-      data.nombre,
-      data.email,
-      data.telefono,
-      data.asistencia,
-      data.acompanantes,
-      data.alergias,
-      data.transporte ? 'Sí' : 'No',
-      data.alojamiento ? 'Sí' : 'No',
-      data.comentarios
+      body.name || "",
+      body.email || "",
+      body.phone || "",
+      body.attending || "",
+      body.guests || "",
+      body.allergies || "",
+      body.transport || "",
+      body.accommodation || "",
+      body.comments || "",
     ]];
 
-    console.log('Appending values to Google Sheet:', values);
-
-    const response = await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'A:J',
-      valueInputOption: 'RAW',
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range: "Hoja 1!A1",
+      valueInputOption: "RAW",
       requestBody: { values },
     });
 
-    console.log('Google Sheets append response:', response.data);
+    return NextResponse.json({ ok: true, message: "Enviado correctamente" });
 
-    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error al enviar datos a Google Sheets:', error);
-    return NextResponse.json({ error: 'Error al enviar datos' }, { status: 500 });
+    console.error("ERROR Google Sheets:", error);
+    return NextResponse.json({ error: "Error al guardar" }, { status: 500 });
   }
 }
