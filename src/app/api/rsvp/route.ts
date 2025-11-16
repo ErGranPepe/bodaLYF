@@ -14,8 +14,7 @@ export async function POST(req: Request) {
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
 
-    const client = await auth.getClient();
-    const sheets = google.sheets({ version: "v4", auth: client });
+    const sheets = google.sheets({ version: "v4", auth });
 
     // EL ID DE TU EXCEL REAL (el que ya tienes con invitados)
     const spreadsheetId = "1PDbMbCkRjJ62fcolm42SHoQh_xbv_nOUN-81kb1js7c";
